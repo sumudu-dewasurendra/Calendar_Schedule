@@ -1,0 +1,185 @@
+<div class="modal fade" data-backdrop="static">
+
+    <div class="modal-dialog">
+        <form name="form" novalidate>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" ng-click="close(false)" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h3 translate>notes</h3>
+                    {{optionsObj.date.toLocaleDateString()}}
+                </div>
+                <div class="modal-body">
+                    <div>
+                        <div class="box-body">
+                            <div class="col-md-12">
+                                <table st-table="foriegnKeysDisplayedCollection" class="table table-condensed table-hover">
+                                    <thead></thead>
+                                    <tbody ng-repeat="text in optionsObj.note track by $index">
+                                        <tr>
+                                            <td>
+                                                <div class="row">
+                                                    <div class="col-md-8">{{text.text}}</div>
+                                                    <div class="col-md-1">
+                                                        <button type="button" ng-click="hideShowRowText(text)" class="btn btn-sm btn-default"><i class="fa fa-edit"></i></button>
+                                                    </div>
+                                                    <div class="col-md-1">
+                                                        <button type="button" ng-click="removeText($index)" class="btn btn-sm btn-danger"><i class="fa fa-minus"></i></button>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr ng-show="text.expanded">
+                                            <td center>
+                                                <div class="container-fluid">
+                                                    <div class="row form-group col-md-12">
+                                                        <div class="col-md-4">
+                                                            <label class="control-label">note : </label>
+                                                        </div>
+                                                        <div class="col-md-8">
+                                                            <textarea class="form-control" ng-model="text.text" required />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="box-footer">
+                            <div class="col-md-12">
+                                <div class="col-md-offset-10 col-md-2">
+                                    <button type="button" ng-click="addText()" class="btn btn-sm btn-default"><i class="fa fa-plus"></i> Note</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="box-body">
+                            <div class="col-md-12">
+                                <table st-table="foriegnKeysDisplayedCollection" class="table table-condensed table-hover">
+                                    <thead></thead>
+                                    <tbody ng-repeat="schedule in optionsObj.schedule track by $index">
+                                        <tr>
+                                            <td>
+                                                <div class="row">
+                                                    <div class="col-md-8">{{schedule.title}}</div>
+                                                    <div class="col-md-1">
+                                                        <button type="button" ng-click="hideShowRowSchedule(schedule)" class="btn btn-sm btn-default"><i class="fa fa-edit"></i></button>
+                                                    </div>
+                                                    <div class="col-md-1">
+                                                        <button type="button" ng-click="removeSchedule($index)" class="btn btn-sm btn-danger"><i class="fa fa-minus"></i></button>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr ng-show="schedule.expanded">
+                                            <td center>
+                                                <div class="container-fluid">
+                                                    <div class="row form-group col-md-12">
+                                                        <div class="col-md-4">
+                                                            <label class="control-label">title : </label>
+                                                        </div>
+                                                        <div class="col-md-8">
+                                                            <input class="form-control" type="text" ng-model="schedule.title" required />
+                                                        </div>
+                                                    </div>
+                                                    <div class="row form-group col-md-12">
+                                                        <div class="col-md-4">
+                                                            <label class="control-label">start time : </label>
+                                                        </div>
+                                                        <div class="col-md-8">
+                                                            <input class="form-control" type="time" ng-model="schedule.startTime" required />
+                                                        </div>
+                                                    </div>
+                                                    <div class="row form-group col-md-12">
+                                                        <div class="col-md-4">
+                                                            <label class="control-label">end time : </label>
+                                                        </div>
+                                                        <div class="col-md-8">
+                                                            <input class="form-control" type="time" ng-model="schedule.endTime" required />
+                                                        </div>
+                                                    </div>
+                                                    <div class="row form-group col-md-12">
+                                                        <div class="col-md-4">
+                                                            <label class="control-label">alert : </label>
+                                                        </div>
+                                                        <div class="col-md-8">
+                                                            <input type="checkbox" ng-model="schedule.alert"/>
+                                                        </div>
+                                                    </div>
+                                                    <div ng-show="schedule.alert">
+                                                        <div class="row form-group col-md-12">
+                                                            <div ng-hide="true">
+                                                            <div class="col-md-4">
+                                                                <label class="control-label">alert type : </label>
+                                                            </div>
+                                                            <div class="col-md-8">                                                                                                                               
+                                                                <select ng-model="schedule.alerttype">
+                                                                    <option value="popupmessage">popup message</option>
+                                                                    <option value="emailnotification">e-mail notification</option>
+                                                                </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row form-group col-md-12">
+                                                            <div class="col-md-4">
+                                                                <label class="control-label">alert time : </label>
+                                                            </div>
+                                                            <div class="col-md-8">
+                                                                <select ng-model="schedule.alertTime">
+                                                                    <option value=0>at time of event</option>
+                                                                    <option value=300>5 minutes before</option>
+                                                                    <option value=600>10 minutes before</option>
+                                                                    <option value=900>15 minutes before</option>
+                                                                    <option value=1800>30 minutes before</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="box-footer">
+                            <div class="col-md-12">
+                                <div class="col-md-offset-10 col-md-2">
+                                    <button type="button" ng-click="addSchedule()" class="btn btn-sm btn-default"><i class="fa fa-plus"></i> Schedule</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="btn-toolbar" role="toolbar">
+                        <div class="btn-group pull-left" role="group">
+                            <div class="btn-group pull-left" role="group">
+                                <button type="button" ng-click="abort()" class="btn btn-default" data-dismiss="modal">
+                                    <div class=""><i class="ai application-delete2-16"></i></div>
+                                    <div>Close</div>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="btn-toolbar" role="toolbar">
+                            <div class="btn-group pull-right" role="group">
+                                <button type="button" ng-click="save()" class="btn btn-primary" ng-disabled="form.$invalid">
+                                    <div class=""><i class="ai application-save-16"></i></div>
+                                    <div>{{button}}</div>
+                                </button>
+                            </div>
+                            <div class="btn-group pull-right" role="group">
+                                <button type="button" ng-click="delete()" class="btn btn-primary" ng-show="buttonType == 'Update'">
+                                    <div class=""><i class="ai application-delete-16"></i></div>
+                                    <div>Delete</div>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
